@@ -1,0 +1,232 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>$PERSON — $TITLE</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<script src="https://cdn.plot.ly/plotly-2.32.0.min.js"></script>
+<style>
+:root{
+  --bg:#0B0E14; --panel:#11151E; --panel2:#151B27; --ink:#E8EAF0; --muted:#8A93A6;
+  --rule:#232A38; --gain:#3DD68C; --loss:#F0564A; --brass:#D9A441;
+  --zer:#6AA1FF; --ang:#C792EA; --gro:#5BD3BE; --div:#D9A441;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+body{background:var(--bg);color:var(--ink);font:400 16px/1.6 Inter,system-ui,sans-serif;-webkit-font-smoothing:antialiased}
+.wrap{max-width:1080px;margin:0 auto;padding:0 24px}
+.num,.rval,td.num,.kval{font-family:'IBM Plex Mono',monospace;font-variant-numeric:tabular-nums}
+.mut{color:var(--muted)} .sm{font-size:12.5px;line-height:1.5} .gain{color:var(--gain)} .loss{color:var(--loss)} .pend{color:var(--brass)}
+.eyebrow{font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.18em;color:var(--brass);text-transform:uppercase}
+
+header{padding:64px 0 28px;border-bottom:1px solid var(--rule)}
+header h1{font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:clamp(28px,4.5vw,44px);line-height:1.12;margin:14px 0 10px;letter-spacing:-.01em}
+header .sub{color:var(--muted);max-width:62ch}
+header .meta{display:flex;gap:28px;flex-wrap:wrap;margin-top:22px;font-family:'IBM Plex Mono',monospace;font-size:12.5px;color:var(--muted)}
+header .meta b{color:var(--ink);font-weight:500}
+
+/* signature: reconciliation strip */
+.recon{display:flex;flex-wrap:wrap;gap:0;margin:34px 0 10px;border:1px solid var(--rule);border-radius:10px;overflow:hidden;background:var(--panel)}
+.rnode{flex:1 1 160px;min-width:150px;padding:14px 16px;border-right:1px solid var(--rule);position:relative}
+.rnode:last-child{border-right:none}
+.rnode .st{font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.08em;margin-bottom:4px}
+.rnode .st.ok{color:var(--gain)} .rnode .st.wait{color:var(--brass)}
+.rnode p{font-size:12.5px;color:var(--muted);line-height:1.45}
+.rnode p b{color:var(--ink);font-weight:500}
+
+section{padding:56px 0;border-bottom:1px solid var(--rule)}
+.shead{display:flex;align-items:baseline;gap:16px;margin-bottom:26px}
+.snum{font-family:'IBM Plex Mono',monospace;color:var(--brass);font-size:13px}
+.shead h2{font-family:'Space Grotesk',sans-serif;font-size:24px;font-weight:700;letter-spacing:-.01em}
+.shead .note{margin-left:auto;font-size:12.5px;color:var(--muted)}
+
+.kpis{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+.kpi{background:var(--panel);border:1px solid var(--rule);border-radius:10px;padding:18px 20px}
+.kname{font-size:12px;color:var(--muted);letter-spacing:.04em;text-transform:uppercase;margin-bottom:8px}
+.kval{font-size:clamp(22px,3vw,30px);font-weight:600}
+.ksub{font-size:12px;color:var(--muted);margin-top:6px}
+
+.chart{background:var(--panel);border:1px solid var(--rule);border-radius:10px;padding:10px 6px 0;margin-top:14px}
+.chart .cap{padding:12px 16px 14px;font-size:12.5px;color:var(--muted)}
+
+table{width:100%;border-collapse:collapse;background:var(--panel);border:1px solid var(--rule);border-radius:10px;overflow:hidden}
+th{font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);text-align:left;padding:12px 14px;border-bottom:1px solid var(--rule);font-weight:500}
+td{padding:13px 14px;border-bottom:1px solid var(--rule);vertical-align:top;font-size:14px}
+tr:last-child td{border-bottom:none}
+td.sym{font-family:'IBM Plex Mono',monospace;font-weight:500}
+td.num{text-align:right;white-space:nowrap}
+th.num{text-align:right}
+.frame{max-width:44ch;margin-top:4px}
+.pill{font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.1em;padding:3px 8px;border-radius:99px;border:1px solid}
+.pthesis{color:var(--gain);border-color:var(--gain)} .preview{color:var(--brass);border-color:var(--brass)} .pdisc{color:var(--muted);border-color:var(--muted)}
+
+.exgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+.exhibit{background:linear-gradient(180deg,var(--panel2),var(--panel));border:1px solid var(--rule);border-radius:10px;padding:22px}
+.exhibit h3{font-family:'Space Grotesk',sans-serif;font-size:18px;margin:10px 0 8px}
+.exhibit p{font-size:13.5px;color:var(--muted)}
+
+.rgrid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-bottom:14px}
+.rcard{background:var(--panel);border:1px solid var(--rule);border-radius:10px;padding:18px}
+.rcard.live{border-color:var(--brass)}
+.rname{font-size:12px;color:var(--muted);text-transform:uppercase;letter-spacing:.05em;margin-bottom:8px}
+.rval{font-size:22px;font-weight:600}
+.rval .to{font-size:13px;color:var(--muted);font-weight:400}
+.rnote{font-size:12px;color:var(--muted);margin-top:8px;line-height:1.5}
+.cgrid{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.cgrid .chart{margin-top:0}
+.honest{margin-top:14px;background:var(--panel);border-left:3px solid var(--brass);border-radius:6px;padding:16px 18px;font-size:13.5px;color:var(--muted)}
+.honest b{color:var(--ink);font-weight:500}
+
+.meth ol{margin:0 0 18px 20px;display:grid;gap:10px;font-size:14px;color:var(--muted)}
+.meth ol b{color:var(--ink);font-weight:500}
+.meth .num{color:var(--ink)}
+
+footer{padding:40px 0 64px;color:var(--muted);font-size:12.5px;display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap}
+footer .num{font-size:12px}
+
+@media(max-width:860px){.kpis{grid-template-columns:repeat(2,1fr)}.exgrid{grid-template-columns:1fr}.rgrid{grid-template-columns:repeat(2,1fr)}.cgrid{grid-template-columns:1fr}}
+@media(max-width:560px){.kpis{grid-template-columns:1fr}.rgrid{grid-template-columns:1fr}.shead .note{display:none}}
+</style>
+</head>
+<body>
+<header>
+  <div class="wrap">
+    <div class="eyebrow">Independent portfolio · verified track record</div>
+    <h1>$PERSON — a markets record, reconciled to the rupee.</h1>
+    <p class="sub">Every figure below is derived from broker tradebooks, P&amp;L statements, fund ledgers, dividend and holdings reports across three accounts — rebuilt with FIFO matching in Python and tied back to source. Gaps are disclosed, not smoothed.</p>
+    <div class="meta">
+      <span>WINDOW <b>$WINDOW</b></span><span>BROKERS <b>Zerodha · AngelOne · Groww</b></span>
+      <span>AS OF <b>$ASOF</b></span><span>SOURCES <b>10 statements · 2 ledgers · 1 holdings file</b></span>
+    </div>
+    <div class="recon" aria-label="reconciliation pipeline">
+      <div class="rnode"><div class="st ok">✓ REBUILD</div><p>FIFO trade rebuild ties to Zerodha-stated realized P&amp;L within <b>₹0.004</b></p></div>
+      <div class="rnode"><div class="st ok">✓ LEDGER</div><p>Groww cash ledger identity closes within <b>₹40</b> across 210 entries</p></div>
+      <div class="rnode"><div class="st ok">✓ RECOVERED</div><p><b>+₹59,234</b> IPO-flip gain found in cash flows, absent from broker P&amp;L</p></div>
+      <div class="rnode"><div class="st ok">✓ CORP ACTIONS</div><p>Bonus, demerger, rights &amp; IPO allotments reconciled across <b>406 orders</b></p></div>
+      <div class="rnode"><div class="st wait">⏳ PENDING</div><p>AngelOne funds ledger · OLA current mark · one Zerodha exit (disclosed)</p></div>
+    </div>
+  </div>
+</header>
+
+<section id="overview">
+  <div class="wrap">
+    <div class="shead"><span class="snum">01</span><h2>Overview</h2><span class="note">Realized record only — open positions are reported separately in 05</span></div>
+    <div class="kpis">
+      <div class="kpi"><div class="kname">Net realized P&amp;L</div><div class="kval gain">+$NET</div><div class="ksub">$NETNOTE</div></div>
+      <div class="kpi"><div class="kname">Turnover</div><div class="kval">$TURN</div><div class="ksub">equity + F&amp;O, both legs, 3 brokers</div></div>
+      <div class="kpi"><div class="kname">Executed orders</div><div class="kval">$ORDERS</div><div class="ksub">~100 instruments · Sep '23 – Jun '26</div></div>
+      <div class="kpi"><div class="kname">Blended win rate</div><div class="kval">$WIN</div><div class="ksub">82% Zerodha · 70% Groww · 7/7 AngelOne equity</div></div>
+      <div class="kpi"><div class="kname">Profit factor</div><div class="kval">$PF</div><div class="ksub">Groww book · avg win ₹4,243 vs avg loss ₹6,311</div></div>
+      <div class="kpi"><div class="kname">Median holding period</div><div class="kval">$HOLD</div><div class="ksub">Groww / Zerodha · short-horizon swing style</div></div>
+    </div>
+  </div>
+</section>
+
+<section id="performance">
+  <div class="wrap">
+    <div class="shead"><span class="snum">02</span><h2>Performance</h2><span class="note">Cumulative realized P&amp;L — not mark-to-market equity (see methodology)</span></div>
+    <div class="chart"><div id="perf" style="height:420px"></div>
+      <div class="cap">Monthly realized P&amp;L by broker (bars, net of charges allocated pro-rata) with cumulative total (line). Dividends shown as their own series at ex-date month.</div></div>
+  </div>
+</section>
+
+<section id="brokers">
+  <div class="wrap">
+    <div class="shead"><span class="snum">03</span><h2>Broker comparison</h2></div>
+    <table>
+      <thead><tr><th>Broker</th><th>Window</th><th class="num">Net realized</th><th class="num">Turnover</th><th class="num">Orders</th><th class="num">Win rate</th><th>Reconciliation note</th></tr></thead>
+      <tbody>$BROKER_ROWS</tbody>
+    </table>
+  </div>
+</section>
+
+<section id="exhibits">
+  <div class="wrap">
+    <div class="shead"><span class="snum">04</span><h2>Signature exhibits</h2><span class="note">Three episodes, fully timestamped in source data</span></div>
+    <div class="exgrid">$EXHIBITS</div>
+  </div>
+</section>
+
+<section id="openbook">
+  <div class="wrap">
+    <div class="shead"><span class="snum">05</span><h2>Open book</h2><span class="note">Reported at honest marks. Not included in realized figures above.</span></div>
+    <table>
+      <thead><tr><th>Position</th><th class="num">Cost</th><th class="num">Current</th><th class="num">Mark</th><th>Status</th></tr></thead>
+      <tbody>$OPEN_ROWS</tbody>
+    </table>
+    <div class="honest"><b>Why this section exists.</b> The realized record above was partly funded by capital that now sits in these positions. A track record that hides its open losers isn't a track record. The disposition pattern visible here — quick to realize winners, slow to exit losers — was surfaced by this same attribution pipeline and now drives a written position-review rule.</div>
+  </div>
+</section>
+
+<section id="returns">
+  <div class="wrap">
+    <div class="shead"><span class="snum">06</span><h2>Returns &amp; risk</h2><span class="note">All-in XIRR is a total-cash-flow metric: open positions cannot be excluded</span></div>
+    <div class="rgrid">$RETURNS</div>
+    <div class="cgrid">
+      <div class="chart"><div id="contrib" style="height:380px"></div><div class="cap">Top realized contributors and detractors, cross-broker, corp-action adjusted.</div></div>
+      <div class="chart"><div id="holds" style="height:380px"></div><div class="cap">Holding-period distribution, matched lots (Zerodha + Groww), capped at 120 days.</div></div>
+    </div>
+    <div class="cgrid" style="margin-top:14px">
+      <div class="chart"><div id="lossdist" style="height:340px"></div><div class="cap">Distribution of realized losses. Largest single realized loss across 33 months: ₹8.0k — against a largest open mark of −₹66k. The risk lives in the holding, not the trading.</div></div>
+      <div class="chart"><div id="bench" style="height:340px"></div><div class="cap">Benchmark overlay (NIFTY TRI) renders automatically when <span class="num">data/benchmark.csv</span> is supplied — deliberately empty rather than approximated.</div></div>
+    </div>
+  </div>
+</section>
+
+<section id="methodology" class="meth">
+  <div class="wrap">
+    <div class="shead"><span class="snum">07</span><h2>Methodology &amp; data coverage</h2></div>
+    <ol>
+      <li><b>Sources.</b> Zerodha tradebook + P&amp;L + fund ledger (FY Sep '23–Aug '24) and current holdings; AngelOne trades + P&amp;L (Oct '24–Aug '25); Groww order history, two P&amp;L reports, dividend report and full fund ledger (May '24–Jun '26).</li>
+      <li><b>Trade reconstruction.</b> Trades matched into lots with FIFO. Validation: the rebuilt Zerodha realized P&amp;L equals the broker-stated figure to within ₹0.004; unmatched quantities all trace to corporate actions (Reliance 1:1 bonus, Siemens demerger, rights entitlements, IPO allotments), which are deferred to broker-adjusted statements.</li>
+      <li><b>Ledger forensics.</b> Groww's settlement ledger closes against deposits, withdrawals and charges within ₹40. A ₹185,516 settlement gap identified the OLA IPO application (2,441 × ₹76), recovering a +₹59,234 realized gain absent from the broker's own P&amp;L because IPO cost bases are excluded there.</li>
+      <li><b>Charges.</b> All totals are net of broker charges (₹27.2k). For the monthly curve, charges are allocated pro-rata to months by realized activity; KPI totals use exact statement values.</li>
+      <li><b>Exclusions, disclosed.</b> One Zerodha exit (LODHA, 26 sh, cost ₹38,565) occurred in a period not covered by provided ledgers; its realized P&amp;L is excluded from every total on this page. AngelOne's fund ledger and OLA Electric's current mark are pending — the affected metrics display PENDING rather than estimates.</li>
+      <li><b>Separation principle.</b> Realized record and open book are never blended. The all-in XIRR, where shown, includes every cash flow and the marked value of all open positions; it is reported with its drivers rather than omitted when unflattering.</li>
+    </ol>
+    <p class="mut sm">Reproduction: <span class="num">python build.py</span> regenerates this page from <span class="num">data/</span>. Pipeline: Python · pandas · Plotly. No figure on this page exists outside the data layer.</p>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap" style="display:flex;justify-content:space-between;flex-wrap:wrap;gap:16px;padding:0">
+    <span>$PERSON · Independent portfolio record · $WINDOW</span>
+    <span class="num">built from source statements · python build.py · plotly.js</span>
+  </div>
+</footer>
+
+<script>
+const P = $PAYLOAD;
+const C = {zer:'#6AA1FF', ang:'#C792EA', gro:'#5BD3BE', div:'#D9A441', ink:'#E8EAF0', mut:'#8A93A6', rule:'#232A38', gain:'#3DD68C', loss:'#F0564A', bg:'rgba(0,0,0,0)'};
+const base = {paper_bgcolor:C.bg, plot_bgcolor:C.bg, font:{family:'IBM Plex Mono, monospace', size:11, color:C.mut},
+  margin:{l:56,r:16,t:24,b:42}, xaxis:{gridcolor:C.rule,zerolinecolor:C.rule}, yaxis:{gridcolor:C.rule,zerolinecolor:C.rule},
+  legend:{orientation:'h', y:1.12, font:{size:11}}, hoverlabel:{bgcolor:'#151B27', bordercolor:C.rule, font:{family:'IBM Plex Mono'}}};
+const cfg = {displayModeBar:false, responsive:true};
+
+Plotly.newPlot('perf', [
+  {type:'bar', name:'Zerodha', x:P.months, y:P.series.Zerodha, marker:{color:C.zer}},
+  {type:'bar', name:'AngelOne', x:P.months, y:P.series.AngelOne, marker:{color:C.ang}},
+  {type:'bar', name:'Groww', x:P.months, y:P.series.Groww, marker:{color:C.gro}},
+  {type:'bar', name:'Dividends', x:P.months, y:P.series.Dividends, marker:{color:C.div}},
+  {type:'scatter', name:'Cumulative realized', x:P.months, y:P.cum, yaxis:'y2', line:{color:C.ink, width:2}, mode:'lines'}
+], Object.assign({}, base, {barmode:'relative',
+  yaxis:Object.assign({},base.yaxis,{title:'monthly ₹'}),
+  yaxis2:{overlaying:'y', side:'right', gridcolor:'rgba(0,0,0,0)', title:'cumulative ₹', color:C.mut}}), cfg);
+
+Plotly.newPlot('contrib', [{type:'bar', orientation:'h', x:P.contrib_pnl, y:P.contrib_syms,
+  marker:{color:P.contrib_pnl.map(v=>v>=0?C.gain:C.loss)}, hovertemplate:'%{y}: ₹%{x:,.0f}<extra></extra>'}],
+  Object.assign({}, base, {margin:{l:230,r:16,t:10,b:42}, yaxis:Object.assign({},base.yaxis,{automargin:true})}), cfg);
+
+Plotly.newPlot('holds', [{type:'histogram', x:P.holds, nbinsx:24, marker:{color:C.gro, line:{color:C.rule,width:1}}}],
+  Object.assign({}, base, {xaxis:Object.assign({},base.xaxis,{title:'days held'}), yaxis:Object.assign({},base.yaxis,{title:'lots'})}), cfg);
+
+Plotly.newPlot('lossdist', [{type:'histogram', x:P.losses, nbinsx:20, marker:{color:C.loss, line:{color:C.rule,width:1}}}],
+  Object.assign({}, base, {xaxis:Object.assign({},base.xaxis,{title:'realized loss ₹'}), yaxis:Object.assign({},base.yaxis,{title:'lots'})}), cfg);
+
+Plotly.newPlot('bench', [], Object.assign({}, base, {annotations:[{text:'awaiting data/benchmark.csv — no approximations shown', showarrow:false, font:{color:C.mut, size:12}}]}), cfg);
+</script>
+</body>
+</html>

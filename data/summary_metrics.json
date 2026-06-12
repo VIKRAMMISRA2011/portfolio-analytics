@@ -1,0 +1,76 @@
+{
+ "period": "Sep 2023 \u2013 Jun 2026",
+ "generated": "2026-06-12",
+ "totals": {
+  "net_realized_incl_div": 309082.82,
+  "net_realized_ex_div": 296784.87,
+  "dividends": 12297.95,
+  "turnover": 27567100.0,
+  "orders": 399,
+  "lot_win_rate": 0.7778,
+  "lots": 270,
+  "profit_factor": 1.94,
+  "median_hold_days": 9.0
+ },
+ "brokers": {
+  "zerodha": {
+   "window": "Sep 2023 \u2013 Aug 2024",
+   "net": 40561.0,
+   "gross": 46866.53,
+   "charges": 6305.0,
+   "turnover": 4269347.0,
+   "orders": 165,
+   "lot_wr": 0.818,
+   "scrip_wr": 0.875,
+   "note": "FIFO engine ties to broker statement: \u20b90.00 variance"
+  },
+  "angelone": {
+   "window": "Oct 2024 \u2013 Aug 2025",
+   "net": 101928.0,
+   "equity_net": 110371.57,
+   "fno_net": -8443.61,
+   "turnover": 4606539.0,
+   "orders": 53,
+   "scrip_wr": 1.0,
+   "note": "Statement scrip-level nets; 7/7 equity names profitable"
+  },
+  "groww": {
+   "window": "May 2024 \u2013 Jun 2026",
+   "net": 154295.0,
+   "stmt_net": 95061.79,
+   "ipo_recovered": 59233.66,
+   "turnover": 18691214.0,
+   "orders": 181,
+   "lot_wr": 0.702,
+   "profit_factor": 1.71,
+   "note": "Ledger \u2194 order-history reconciliation closes within \u20b940; +\u20b959,234 IPO gain recovered from settlement gap"
+  }
+ },
+ "exhibits": [
+  {
+   "title": "Election-week deployment",
+   "date": "Jun 2024",
+   "stat": "+\u20b981,015 realized over Jun\u2013Jul 24",
+   "body": "~\u20b97.5L committed on 6 Jun 2024, two sessions after the election-result drawdown \u2014 ICICI, HDFC, JIOFIN, IDBI, Adani Green, Phoenix. Exited through June\u2013July."
+  },
+  {
+   "title": "OLA Electric IPO flip",
+   "date": "Oct 2024",
+   "stat": "+\u20b959,234 realized",
+   "body": "2,441 shares allotted at \u20b976, sold at \u20b9100.26. Absent from broker P&L (IPO cost basis); recovered by reconciling a \u20b91.85L settlement-ledger gap."
+  },
+  {
+   "title": "Research with capital committed",
+   "date": "Jan 2025 \u2013 May 2026",
+   "stat": "Held a \u221226% drawdown \u00b7 3 dividends",
+   "body": "Initiated independent coverage on Triveni Turbine; bought 284 sh at \u20b9703.79. Marked \u221226% by May 2025; averaged 10 sh at \u20b9539 into the drawdown; exited all 294 at \u20b9709.90 in May 2026, three dividends collected."
+  }
+ ],
+ "pending": [
+  "Combined money-weighted return (XIRR) \u2014 requires AngelOne fund ledger + final OLA mark; withheld until computable across all accounts",
+  "NIFTY 50 TRI benchmark overlay \u2014 to be added with a market-data feed",
+  "OLA Electric current mark \u2014 pledged holding, not priced in broker P&L export",
+  "Zerodha post-Aug-2024 disposals (incl. LODHA 26 sh open at window end) \u2014 pending FY25 export"
+ ],
+ "charges_total": 31893.0
+}
