@@ -1,0 +1,79 @@
+{
+  "intro": "Two open items were investigated against newly-provided broker P&L and resolved this revision. The figures below are transcribed from the broker statements; account numbers, client codes and PAN are omitted.",
+  "resolved": [
+    {
+      "item": "OLA Electric Mobility Ltd",
+      "broker": "Groww",
+      "source": "Groww stock-level P&L view · 01 May 2024 – 01 May 2025",
+      "prior": "Carried in the open book as a pledged position — 2,441 sh at cost ₹2,44,710.25, mark pending.",
+      "finding": "The 2,441-share buy was the entry leg of an intraday round-trip, not a hold: bought ₹100.25 and sold ₹100.26 in the same session (01 Oct 2024). The broker's own stock P&L shows buy value ₹12,48,013.03 against sell value ₹12,51,522.32 — every share bought was sold.",
+      "resolution": "No open or pledged OLA position exists. Closed; realised +₹3,509.29 across four round-trips, already in the record. The OLA mark is no longer a pending item.",
+      "table": {
+        "title": "Groww · Ola Electric Mobility Ltd · realised trades",
+        "head": [
+          "Buy price",
+          "Sell price",
+          "Shares",
+          "Realised P&L"
+        ],
+        "rows": [
+          [
+            "₹100.25 · 01 Oct 24",
+            "₹100.26 · 01 Oct 24",
+            "2,441",
+            "+₹24.41 · intraday"
+          ],
+          [
+            "₹99.90 · 01 Oct 24",
+            "₹99.98 · 01 Oct 24",
+            "5,000",
+            "+₹400.00 · intraday"
+          ],
+          [
+            "₹89.95 · 11 Oct 24",
+            "₹90.50 · 11 Oct 24",
+            "5,600",
+            "+₹3,080.00 · intraday"
+          ],
+          [
+            "₹82.78 · 01 Nov 24",
+            "₹87.66 · 29 Nov 24",
+            "1",
+            "+₹4.88"
+          ]
+        ],
+        "foot": "Buy avg ₹95.69 · buy value ₹12,48,013.03 · sell avg ₹95.96 · sell value ₹12,51,522.32 · realised +₹3,509.29"
+      }
+    },
+    {
+      "item": "LODHA (Macrotech Developers)",
+      "broker": "Zerodha",
+      "source": "Zerodha Console P&L · combined equity · 30 Nov 2023 – 13 Jun 2026 (generated 12 Jun 2026)",
+      "prior": "26 sh shown open at the Aug-2024 window end; the exit fell outside the provided statements, so its P&L was excluded from all totals and flagged pending.",
+      "finding": "The full-period Console P&L now covers the disposal and shows LODHA fully closed: 52 sh bought and sold, buy value ₹74,429.60, sell value ₹79,318.10, realised +₹4,888.50 (+6.57%), unrealised ₹0.",
+      "resolution": "Position closed. Total realised +₹4,888.50: ₹3,993.50 already sits in the dated-lot cadence; the +₹895.00 tail is statement-confirmed (amount exact). The export does not date the tail lots, so it is disclosed here rather than placed in a specific cadence month — the headline stays conservative until the dated lots are available.",
+      "table": {
+        "title": "Zerodha Console · LODHA · closed position",
+        "head": [
+          "Qty",
+          "Buy avg",
+          "Buy value",
+          "Sell avg",
+          "Sell value",
+          "Realised"
+        ],
+        "rows": [
+          [
+            "52",
+            "₹1,431.34",
+            "₹74,429.60",
+            "₹1,525.35",
+            "₹79,318.10",
+            "+₹4,888.50 (+6.57%)"
+          ]
+        ],
+        "foot": "Unrealised P&L ₹0 — fully closed. Reconciliation: ₹3,993.50 in dated lots + ₹895.00 statement tail = ₹4,888.50."
+      }
+    }
+  ]
+}

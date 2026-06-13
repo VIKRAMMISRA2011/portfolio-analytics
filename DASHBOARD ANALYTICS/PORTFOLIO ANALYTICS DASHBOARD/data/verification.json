@@ -1,0 +1,239 @@
+{
+  "verified_on": "2026-06-12",
+  "method": "Independent re-verification: every figure below was recomputed directly from the raw broker exports (kept outside this repo for privacy) using scripts/verify_sources.py, then compared against the published datasets. Raw sources: Zerodha tradebook + P&L + ledger + full-period Console P&L; AngelOne trades history + broking ledger + P&L statement; Groww order history + two P&L statements + stock-level P&L view + fund ledger + dividend report (12 documents). This revision additionally cleared two previously-open items against newly-provided broker P&L — see the resolved-items evidence above.",
+  "sources": [
+    {
+      "source": "Zerodha tradebook (equity)",
+      "coverage": "Sep 2023 – Aug 2024",
+      "drives": "orders, turnover, FIFO lot reconstruction"
+    },
+    {
+      "source": "Zerodha P&L statement",
+      "coverage": "FY Sep 2023 – Aug 2024",
+      "drives": "stated realized P&L, charges, scrip-level results"
+    },
+    {
+      "source": "Zerodha fund ledger",
+      "coverage": "Sep 2023 – Aug 2024",
+      "drives": "bank flows, cash audit trail"
+    },
+    {
+      "source": "AngelOne trades history",
+      "coverage": "Oct 2024 – Aug 2025",
+      "drives": "trade count, contract detail"
+    },
+    {
+      "source": "AngelOne P&L statement (equity + F&O)",
+      "coverage": "Oct 2024 – Aug 2025",
+      "drives": "scrip nets, F&O nets, turnover"
+    },
+    {
+      "source": "AngelOne broking ledger + charges",
+      "coverage": "Oct 2024 – Aug 2025",
+      "drives": "cash flows, DP/pledge/interest charges"
+    },
+    {
+      "source": "Groww order history",
+      "coverage": "May 2024 – Jun 2026",
+      "drives": "orders, turnover, execution timestamps"
+    },
+    {
+      "source": "Groww P&L statements (×2)",
+      "coverage": "May 2024 – May 2025 · Jun 2025 – Jun 2026",
+      "drives": "realized trades, scrip results, charges"
+    },
+    {
+      "source": "Groww fund ledger",
+      "coverage": "May 2024 – Jun 2026",
+      "drives": "deposits, withdrawals, settlement forensics"
+    },
+    {
+      "source": "Dividend report (registrar)",
+      "coverage": "May 2024 – Jun 2026",
+      "drives": "dividend income by ex-date"
+    },
+    {
+      "source": "Zerodha Console P&L (full-period)",
+      "coverage": "Nov 2023 – Jun 2026",
+      "drives": "post-window disposals; LODHA closed-position confirmation"
+    }
+  ],
+  "ties": [
+    {
+      "metric": "Zerodha gross realized P&L",
+      "stated": "₹46,866.53",
+      "recomputed": "₹46,866.53",
+      "delta": "0.00"
+    },
+    {
+      "metric": "Zerodha charges (incl. other debits)",
+      "stated": "₹6,305.07",
+      "recomputed": "₹4,687.88 + ₹1,617.19 = ₹6,305.07",
+      "delta": "0.00"
+    },
+    {
+      "metric": "Zerodha net realized",
+      "stated": "₹40,561.46",
+      "recomputed": "₹40,561.46",
+      "delta": "0.00"
+    },
+    {
+      "metric": "Zerodha executed orders",
+      "stated": "165",
+      "recomputed": "165 unique order IDs",
+      "delta": "0"
+    },
+    {
+      "metric": "Zerodha turnover",
+      "stated": "₹42,69,347",
+      "recomputed": "₹42,69,347",
+      "delta": "0"
+    },
+    {
+      "metric": "Zerodha scrip win rate",
+      "stated": "87.5%",
+      "recomputed": "35 of 40 scrips profitable",
+      "delta": "0"
+    },
+    {
+      "metric": "AngelOne equity net",
+      "stated": "₹1,10,371.57",
+      "recomputed": "₹1,10,371.57",
+      "delta": "0.00"
+    },
+    {
+      "metric": "AngelOne equity hit rate",
+      "stated": "7/7 profitable",
+      "recomputed": "7/7 scrip nets > 0",
+      "delta": "0"
+    },
+    {
+      "metric": "AngelOne F&O net",
+      "stated": "−₹8,443.61",
+      "recomputed": "−₹8,443.61 (statement Net PnL)",
+      "delta": "0.00"
+    },
+    {
+      "metric": "AngelOne turnover",
+      "stated": "₹46,06,539",
+      "recomputed": "equity ₹24,72,405 + F&O ₹21,34,134",
+      "delta": "0"
+    },
+    {
+      "metric": "AngelOne trades",
+      "stated": "53",
+      "recomputed": "53 (statement summary)",
+      "delta": "0"
+    },
+    {
+      "metric": "Groww realized, statement 1",
+      "stated": "—",
+      "recomputed": "₹1,07,455.07 (stated total = trade-level Σ)",
+      "delta": "internal ✓"
+    },
+    {
+      "metric": "Groww realized, statement 2",
+      "stated": "—",
+      "recomputed": "₹8,461.77 (stated total = trade-level Σ)",
+      "delta": "internal ✓"
+    },
+    {
+      "metric": "Groww charges",
+      "stated": "₹20,855.29",
+      "recomputed": "₹19,686.66 + ₹1,168.63",
+      "delta": "0.00"
+    },
+    {
+      "metric": "Groww executed orders",
+      "stated": "181",
+      "recomputed": "181 (all status = Executed)",
+      "delta": "0"
+    },
+    {
+      "metric": "Groww turnover",
+      "stated": "₹1,86,91,214",
+      "recomputed": "₹1,86,91,214 (Σ executed order values)",
+      "delta": "0"
+    },
+    {
+      "metric": "Groww realized lots",
+      "stated": "94",
+      "recomputed": "79 + 15 realised trades",
+      "delta": "0"
+    },
+    {
+      "metric": "Dividends",
+      "stated": "₹12,297.95",
+      "recomputed": "₹12,297.95 (registrar report total)",
+      "delta": "0.00"
+    },
+    {
+      "metric": "OLA IPO exit",
+      "stated": "2,441 sh sold @ ₹100.26",
+      "recomputed": "sell ₹2,44,734.66 on 01-Oct-2024 in order history",
+      "delta": "0.00"
+    },
+    {
+      "metric": "OLA 2,441-sh round-trip (correction)",
+      "stated": "intraday, +₹24.41 (closed)",
+      "recomputed": "buy ₹2,44,710.25 (₹100.25) → sell ₹2,44,734.66 (₹100.26), same session 01-Oct-2024 — Groww stock P&L: buy value ₹12,48,013.03 = sell value ₹12,51,522.32, every share round-tripped",
+      "delta": "0.00"
+    },
+    {
+      "metric": "OLA Electric — open position",
+      "stated": "none (closed)",
+      "recomputed": "0 sh held; prior ‘pledged 2,441 sh’ line was the buy leg of the intraday round-trip above",
+      "delta": "0"
+    },
+    {
+      "metric": "LODHA — closed position (correction)",
+      "stated": "+₹4,888.50 (52 sh)",
+      "recomputed": "sell ₹79,318.10 − buy ₹74,429.60 = ₹4,888.50 (+6.57%), unrealised ₹0 — Zerodha Console P&L, full period",
+      "delta": "0.00"
+    },
+    {
+      "metric": "LODHA tail beyond dated cadence",
+      "stated": "+₹895.00",
+      "recomputed": "₹4,888.50 total − ₹3,993.50 already in dated lots = ₹895.00 (statement-confirmed; undated, disclosed not netted)",
+      "delta": "0.00"
+    },
+    {
+      "metric": "Cross-broker gross cadence",
+      "stated": "₹3,23,944.99",
+      "recomputed": "46,866.53 + 1,01,927.96 + 1,15,916.84 + 59,233.66",
+      "delta": "0.00"
+    },
+    {
+      "metric": "AngelOne ledger conservation",
+      "stated": "—",
+      "recomputed": "inflows = outflows + net trades + charges",
+      "delta": "₹0.01"
+    },
+    {
+      "metric": "Groww ledger conservation",
+      "stated": "—",
+      "recomputed": "credits = debits = ₹72,14,778.53; closing 0",
+      "delta": "0.00"
+    },
+    {
+      "metric": "Coverage gap check (May 2025)",
+      "stated": "two P&L windows abut",
+      "recomputed": "0 executed orders in the uncovered month",
+      "delta": "none"
+    }
+  ],
+  "variances": [
+    {
+      "metric": "Instrument table Σ vs gross cadence",
+      "note": "₹45.55 of the ₹46 gap is one F&O contract (SENSEX options, Apr 2025, net −₹45.55) not mapped into the instrument table. Disclosed as a reconciling item; headline totals are unaffected (they use statement nets, which include it)."
+    },
+    {
+      "metric": "Groww statement-net constant",
+      "note": "Published constant ₹95,061.79 vs ₹95,061.55 derived from the two statements (₹1,15,916.84 − ₹20,855.29). Δ ₹0.24, rounding in the published constant."
+    },
+    {
+      "metric": "Groww ledger ↔ order-history identity",
+      "note": "Independent reproduction closes within ₹670 applying the OLA application adjustment alone; the page's ₹40 figure applies the full corporate-action schedule, which cannot be fully reconstructed from these exports by themselves."
+    }
+  ]
+}

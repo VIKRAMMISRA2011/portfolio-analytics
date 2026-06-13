@@ -1,0 +1,8 @@
+{
+  "label": "NIFTY 50 TRI (index-fund proxy)",
+  "proxy": true,
+  "partial_last": true,
+  "citation": "UTI Nifty 50 Index Fund — Direct Plan, Growth (AMFI scheme code 120716), month-end NAV series via api.mfapi.in (AMFI-published NAVs), fetched 2026-06-12. Final point is 11-Jun-2026 (month-to-date). The fund tracks the NIFTY 50 Total Return Index; tracking difference ≈ 0.1–0.2%/yr. Rebased to 100 at the Sep-2023 month-end.",
+  "fetched": "2026-06-12",
+  "scheme_code": 120716
+}

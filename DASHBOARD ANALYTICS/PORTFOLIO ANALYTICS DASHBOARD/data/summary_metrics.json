@@ -1,0 +1,77 @@
+{
+ "period": "Sep 2023 – Jun 2026",
+ "generated": "2026-06-13",
+ "totals": {
+  "net_realized_incl_div": 309082.82,
+  "net_realized_ex_div": 296784.87,
+  "dividends": 12297.95,
+  "turnover": 27567100.0,
+  "orders": 399,
+  "lot_win_rate": 0.7778,
+  "lots": 270,
+  "profit_factor": 1.94,
+  "median_hold_days": 9.0
+ },
+ "brokers": {
+  "zerodha": {
+   "window": "Sep 2023 – Aug 2024",
+   "net": 40561.0,
+   "gross": 46866.53,
+   "charges": 6305.0,
+   "turnover": 4269347.0,
+   "orders": 165,
+   "lot_wr": 0.818,
+   "scrip_wr": 0.875,
+   "note": "FIFO engine ties to broker statement: ₹0.00 variance"
+  },
+  "angelone": {
+   "window": "Oct 2024 – Aug 2025",
+   "net": 101928.0,
+   "equity_net": 110371.57,
+   "fno_net": -8443.61,
+   "turnover": 4606539.0,
+   "orders": 53,
+   "scrip_wr": 1.0,
+   "note": "Statement scrip-level nets; 7/7 equity names profitable"
+  },
+  "groww": {
+   "window": "May 2024 – Jun 2026",
+   "net": 154295.0,
+   "stmt_net": 95061.79,
+   "ipo_recovered": 59233.66,
+   "turnover": 18691214.0,
+   "orders": 181,
+   "lot_wr": 0.702,
+   "profit_factor": 1.71,
+   "note": "Ledger ↔ order-history reconciliation closes within ₹40; +₹59,234 IPO gain recovered from settlement gap"
+  }
+ },
+ "exhibits": [
+  {
+   "title": "Election-week deployment",
+   "date": "Jun 2024",
+   "stat": "+₹81,015 realized over Jun–Jul 24",
+   "body": "~₹7.5L committed on 6 Jun 2024, two sessions after the election-result drawdown — ICICI, HDFC, JIOFIN, IDBI, Adani Green, Phoenix. Exited through June–July."
+  },
+  {
+   "title": "OLA Electric IPO flip",
+   "date": "Oct 2024",
+   "stat": "+₹59,234 realized",
+   "body": "2,441 shares allotted at ₹76, sold at ₹100.26. Absent from broker P&L (IPO cost basis); recovered by reconciling a ₹1.85L settlement-ledger gap."
+  },
+  {
+   "title": "Research with capital committed",
+   "date": "Jan 2025 – May 2026",
+   "stat": "+₹3,440 realized · held through −26% drawdown · 3 dividends",
+   "body": "Initiated independent coverage on Triveni Turbine; bought 284 sh at ₹703.79. Marked −26% by May 2025; averaged 10 sh at ₹539 into the drawdown; exited all 294 at ₹709.90 in May 2026, three dividends collected."
+  }
+ ],
+ "pending": [
+  "Combined money-weighted return (XIRR) — external cash-flow set assembled from all three broker ledgers (118 flows, ledgers conserve to the paisa); withheld pending a CDSL/demat transfer statement to resolve inter-account in-kind movements before a single capital base can be struck"
+ ],
+ "resolved": [
+  "OLA Electric (Groww) — the 2,441-sh ‘pledged’ position was an intraday round-trip (buy ₹100.25 → sell ₹100.26, 01-Oct-2024); Groww’s stock P&L shows every share round-tripped. Closed, +₹3,509.29 (already in the record). No pledged holding exists; its mark is no longer pending.",
+  "LODHA (Zerodha) — the 26-sh ‘not covered’ disposal is now covered by the Zerodha Console P&L (full period): fully closed, 52 sh, realised +₹4,888.50 (+6.57%), unrealised ₹0. ₹3,993.50 sits in the dated cadence; the +₹895.00 tail is statement-confirmed (amount exact; export does not date the tail lots, so disclosed rather than placed in a cadence month)."
+ ],
+ "charges_total": 31893.0
+}
